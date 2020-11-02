@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class Invoice {
     @GeneratedValue
     @Id
-    private int invoiceId;
+    private Integer invoiceId;
 
     @ManyToOne
     private User client;
@@ -19,4 +19,40 @@ public class Invoice {
 
     @Column
     private String invoiceNumber;
+
+    public Integer getInvoiceId() {
+        return invoiceId;
+    }
+
+    public User getClient() {
+        return client;
+    }
+
+    public void setClient(User client) {
+        this.client = client;
+    }
+
+    public User getExpositor() {
+        return expositor;
+    }
+
+    public void setExpositor(User expositor) {
+        this.expositor = expositor;
+    }
+
+    public Agreement getAgreement() {
+        return agreement;
+    }
+
+    public void setAgreement(Agreement agreement) {
+        this.agreement = agreement;
+    }
+
+    public String getInvoiceNumber() {
+        return invoiceNumber;
+    }
+
+    public void setInvoiceNumber(String invoiceNumber) {
+        this.invoiceNumber = invoiceNumber;
+    }
 }

@@ -4,14 +4,14 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class UserRole {
+public class Privilege {
     @GeneratedValue
     @Id
-    private int userRoleId;
+    private Integer permissionId;
 
     @Column
     private String name;
 
-    @OneToMany(mappedBy = "userRole")
-    private List<User> users;
+    @ManyToMany(mappedBy = "privileges")
+    private List<Role> roles;
 }

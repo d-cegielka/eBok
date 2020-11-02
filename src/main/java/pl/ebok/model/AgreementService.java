@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class AgreementService {
     @GeneratedValue
     @Id
-    private int id;
+    private Integer id;
 
     @ManyToOne
     private Agreement agreement;
@@ -17,4 +17,31 @@ public class AgreementService {
     @Column
     private Double finalFee;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public Agreement getAgreement() {
+        return agreement;
+    }
+
+    public void setAgreement(Agreement agreement) {
+        this.agreement = agreement;
+    }
+
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
+    }
+
+    public Double getFinalFee() {
+        return finalFee;
+    }
+
+    public void setFinalFee(Double finalFee) {
+        this.finalFee = finalFee;
+    }
 }
