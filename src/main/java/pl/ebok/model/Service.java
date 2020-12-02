@@ -1,60 +1,65 @@
 package pl.ebok.model;
 
 import javax.persistence.*;
-import java.util.List;
+import java.io.Serializable;
 
 @Entity
-public class Service {
-    @GeneratedValue
-    @Id
-    private Integer serviceId;
+@Table(name = "service")
+public class Service implements Serializable {
 
-    @Column
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_service", nullable = false)
+    private Integer idService;
+
+    @Column(name = "name", length = 30, nullable = false)
     private String name;
 
-    @Column
+    @Column(name = "fee", nullable = false)
     private Double fee;
 
-    @Column
-    @Lob
+    @Column(name = "description", length = 300)
     private String description;
 
-    @OneToMany(mappedBy = "service")
-    private List<AgreementService> services;
-
-    public Integer getServiceId() {
-        return serviceId;
+    public void setIdService(Integer idService) {
+        this.idService = idService;
     }
 
-    public String getName() {
-        return name;
+    public Integer getIdService() {
+        return idService;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public Double getFee() {
-        return fee;
+    public String getName() {
+        return name;
     }
 
     public void setFee(Double fee) {
         this.fee = fee;
     }
 
-    public String getDescription() {
-        return description;
+    public Double getFee() {
+        return fee;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public List<AgreementService> getServices() {
-        return services;
+    public String getDescription() {
+        return description;
     }
 
-    public void setServices(List<AgreementService> services) {
-        this.services = services;
+    @Override
+    public String toString() {
+        return "Service{" +
+                "idService=" + idService + '\'' +
+                "name=" + name + '\'' +
+                "fee=" + fee + '\'' +
+                "description=" + description + '\'' +
+                '}';
     }
 }

@@ -1,34 +1,40 @@
 package pl.ebok.model;
 
 import javax.persistence.*;
-import java.util.List;
+import java.io.Serializable;
 
 @Entity
-public class Hardware {
-    @GeneratedValue
-    @Id
-    private Integer hardwareId;
+@Table(name = "hardware")
+public class Hardware implements Serializable {
 
-    @Column
+//    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_hardware", nullable = false)
+    private Integer idHardware;
+
+    @Column(name = "type", length = 40, nullable = false)
     private String type;
 
-    @Column
+    @Column(name = "manufacturer", length = 40, nullable = false)
     private String manufacturer;
 
-    @Column
+    @Column(name = "model", length = 40, nullable = false)
     private String model;
 
-    @Column
+    @Column(name = "serialNumber", length = 40, unique = true, nullable = false)
     private String serialNumber;
 
-    @Column
+    @Column(name = "fee", nullable = false)
     private Double fee;
 
-    @ManyToMany
-    private List<Agreement> agreements;
+    public Integer getIdHardware() {
+        return idHardware;
+    }
 
-    public Integer getHardwareId() {
-        return hardwareId;
+    public void setIdHardware(Integer idHardware) {
+        this.idHardware = idHardware;
     }
 
     public String getType() {
@@ -69,13 +75,5 @@ public class Hardware {
 
     public void setFee(Double fee) {
         this.fee = fee;
-    }
-
-    public List<Agreement> getAgreements() {
-        return agreements;
-    }
-
-    public void setAgreements(List<Agreement> agreements) {
-        this.agreements = agreements;
     }
 }

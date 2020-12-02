@@ -1,51 +1,69 @@
 package pl.ebok.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.time.LocalDate;
 
 @Entity
-public class Invoice {
-    @GeneratedValue
+@Table(name = "invoice")
+public class Invoice implements Serializable {
+
     @Id
-    private Integer invoiceId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_invoice", nullable = false)
+    private Integer idInvoice;
 
-    @ManyToOne
-    private User client;
+    @Column(name = "id_client", nullable = false)
+    private Integer idClient;
 
-    @ManyToOne
-    private User expositor;
+    @Column(name = "id_expositor", nullable = false)
+    private Integer idExpositor;
 
-    @ManyToOne
-    private Agreement agreement;
+    @Column(name = "id_agreement", nullable = false)
+    private Integer idAgreement;
 
-    @Column
+    @Column(name = "invoice_number", length = 50, nullable = false)
     private String invoiceNumber;
 
-    public Integer getInvoiceId() {
-        return invoiceId;
+    @Column(name = "issue_date", nullable = false)
+    private LocalDate issueDate;
+
+    @Column(name = "payment_date", nullable = false)
+    private LocalDate paymentDate;
+
+    @Column(name = "amount", nullable = false)
+    private Double amount;
+
+    public Integer getIdInvoice() {
+        return idInvoice;
     }
 
-    public User getClient() {
-        return client;
+    public void setIdInvoice(Integer idInvoice) {
+        this.idInvoice = idInvoice;
     }
 
-    public void setClient(User client) {
-        this.client = client;
+    public Integer getIdClient() {
+        return idClient;
     }
 
-    public User getExpositor() {
-        return expositor;
+    public void setIdClient(Integer idClient) {
+        this.idClient = idClient;
     }
 
-    public void setExpositor(User expositor) {
-        this.expositor = expositor;
+    public Integer getIdExpositor() {
+        return idExpositor;
     }
 
-    public Agreement getAgreement() {
-        return agreement;
+    public void setIdExpositor(Integer idExpositor) {
+        this.idExpositor = idExpositor;
     }
 
-    public void setAgreement(Agreement agreement) {
-        this.agreement = agreement;
+    public Integer getIdAgreement() {
+        return idAgreement;
+    }
+
+    public void setIdAgreement(Integer idAgreement) {
+        this.idAgreement = idAgreement;
     }
 
     public String getInvoiceNumber() {
@@ -54,5 +72,29 @@ public class Invoice {
 
     public void setInvoiceNumber(String invoiceNumber) {
         this.invoiceNumber = invoiceNumber;
+    }
+
+    public LocalDate getIssueDate() {
+        return issueDate;
+    }
+
+    public void setIssueDate(LocalDate issueDate) {
+        this.issueDate = issueDate;
+    }
+
+    public LocalDate getPaymentDate() {
+        return paymentDate;
+    }
+
+    public void setPaymentDate(LocalDate paymentDate) {
+        this.paymentDate = paymentDate;
+    }
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
     }
 }

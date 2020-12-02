@@ -4,23 +4,23 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "role")
-public class Role implements Serializable {
+@Table(name = "status")
+public class Status implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_role", nullable = false)
-    private Integer idRole;
+    @Column(name = "id_status", nullable = false)
+    private Integer idStatus;
 
-    @Column(name = "name", length = 50, nullable = false)
+    @Column(name = "name", length = 20, nullable = false)
     private String name;
 
-    public void setIdRole(Integer idRole) {
-        this.idRole = idRole;
+    public void setIdStatus(Integer idStatus) {
+        this.idStatus = idStatus;
     }
 
-    public Integer getIdRole() {
-        return idRole;
+    public Integer getIdStatus() {
+        return idStatus;
     }
 
     public void setName(String name) {
@@ -33,8 +33,8 @@ public class Role implements Serializable {
 
     @Override
     public String toString() {
-        return "Role{" +
-                "idRole=" + idRole + '\'' +
+        return "Status{" +
+                "idStatus=" + idStatus + '\'' +
                 "name=" + name + '\'' +
                 '}';
     }

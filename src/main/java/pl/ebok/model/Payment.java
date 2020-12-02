@@ -1,54 +1,63 @@
 package pl.ebok.model;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.io.Serializable;
+import java.time.LocalDate;
 
 @Entity
-public class Payment {
-    @GeneratedValue
+@Table(name = "payment")
+
+public class Payment implements Serializable {
+
     @Id
-    private Integer paymentId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_payment", nullable = false)
+    private Integer idPayment;
 
-    @ManyToOne
-    private User client;
+    @Column(name = "id_client", nullable = false)
+    private Integer idClient;
 
-    @ManyToOne
-    private Invoice invoice;
+    @Column(name = "id_invoice", nullable = false)
+    private Integer idInvoice;
 
-    @Column
-    private LocalDateTime paymentDate;
+    @Column(name = "payment_date", nullable = false)
+    private LocalDate paymentDate;
 
-    @Column
+    @Column(name = "amount", nullable = false)
     private Double amount;
 
-    @Column
+    @Column(name = "status", length = 20, nullable = false)
     private String status;
 
-    public Integer getPaymentId() {
-        return paymentId;
+    public Integer getIdPayment() {
+        return idPayment;
     }
 
-    public User getClient() {
-        return client;
+    public void setIdPayment(Integer idPayment) {
+        this.idPayment = idPayment;
     }
 
-    public void setClient(User client) {
-        this.client = client;
+    public Integer getIdClient() {
+        return idClient;
     }
 
-    public Invoice getInvoice() {
-        return invoice;
+    public void setIdClient(Integer idClient) {
+        this.idClient = idClient;
     }
 
-    public void setInvoice(Invoice invoice) {
-        this.invoice = invoice;
+    public Integer getIdInvoice() {
+        return idInvoice;
     }
 
-    public LocalDateTime getPaymentDate() {
+    public void setIdInvoice(Integer idInvoice) {
+        this.idInvoice = idInvoice;
+    }
+
+    public LocalDate getPaymentDate() {
         return paymentDate;
     }
 
-    public void setPaymentDate(LocalDateTime paymentDate) {
+    public void setPaymentDate(LocalDate paymentDate) {
         this.paymentDate = paymentDate;
     }
 

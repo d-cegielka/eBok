@@ -1,60 +1,79 @@
 package pl.ebok.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-public class ResponseToTicket {
-    @GeneratedValue
+@Table(name = "response_to_ticket")
+public class ResponseToTicket implements Serializable {
+
     @Id
-    private Integer responseId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_response", nullable = false)
+    private Integer idResponse;
 
-    @ManyToOne
-    private Ticket ticket;
+    @Column(name = "id_ticket", nullable = false)
+    private Integer idTicket;
 
-    @ManyToOne
-    private User respondingUser;
+    @Column(name = "id_user", nullable = false)
+    private Integer idUser;
 
-    @Column
-    private LocalDateTime responseDate;
+    @Column(name = "response_date", nullable = false)
+    private LocalDate responseDate;
 
-    @Column
-    @Lob
+    @Column(name = "message", length = 500, nullable = false)
     private String message;
 
-    public Integer getResponseId() {
-        return responseId;
+    public void setIdResponse(Integer idResponse) {
+        this.idResponse = idResponse;
     }
 
-    public Ticket getTicket() {
-        return ticket;
+    public Integer getIdResponse() {
+        return idResponse;
     }
 
-    public void setTicket(Ticket ticket) {
-        this.ticket = ticket;
+    public void setIdTicket(Integer idTicket) {
+        this.idTicket = idTicket;
     }
 
-    public User getRespondingUser() {
-        return respondingUser;
+    public Integer getIdTicket() {
+        return idTicket;
     }
 
-    public void setRespondingUser(User respondingUser) {
-        this.respondingUser = respondingUser;
+    public void setIdUser(Integer idUser) {
+        this.idUser = idUser;
     }
 
-    public LocalDateTime getResponseDate() {
+    public Integer getIdUser() {
+        return idUser;
+    }
+
+    public void setResponseDate(LocalDate responseDate) {
+        this.responseDate = responseDate;
+    }
+
+    public LocalDate getResponseDate() {
         return responseDate;
     }
 
-    public void setResponseDate(LocalDateTime responseDate) {
-        this.responseDate = responseDate;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public String getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    @Override
+    public String toString() {
+        return "ResponseToTicket{" +
+                "idResponse=" + idResponse + '\'' +
+                "idTicket=" + idTicket + '\'' +
+                "idUser=" + idUser + '\'' +
+                "responseDate=" + responseDate + '\'' +
+                "message=" + message + '\'' +
+                '}';
     }
 }
