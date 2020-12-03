@@ -2,25 +2,30 @@ package pl.ebok.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "privilege")
-public class Privilege implements Serializable {
+@Table(name = "permission")
+public class Permission implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_privilege", nullable = false)
-    private Integer idPrivilege;
+    @Column(name = "id_permission", nullable = false)
+    private Integer idPermission;
 
     @Column(name = "name", length = 50, nullable = false)
     private String name;
 
-    public void setIdPrivilege(Integer idPrivilege) {
-        this.idPrivilege = idPrivilege;
+    @ManyToMany(mappedBy = "permissions")
+    private Set<Role> roles = new HashSet<>();
+
+    public void setIdPermission(Integer idPrivilege) {
+        this.idPermission = idPrivilege;
     }
 
-    public Integer getIdPrivilege() {
-        return idPrivilege;
+    public Integer getIdPermission() {
+        return idPermission;
     }
 
     public void setName(String name) {
@@ -34,7 +39,7 @@ public class Privilege implements Serializable {
     @Override
     public String toString() {
         return "Privilege{" +
-                "idPrivilege=" + idPrivilege + '\'' +
+                "idPrivilege=" + idPermission + '\'' +
                 "name=" + name + '\'' +
                 '}';
     }

@@ -1,7 +1,9 @@
 package pl.ebok.model;
 
 import javax.persistence.*;
+import java.io.Serial;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "status")
@@ -14,6 +16,9 @@ public class Status implements Serializable {
 
     @Column(name = "name", length = 20, nullable = false)
     private String name;
+
+    @OneToMany(mappedBy = "status")
+    private Set<Ticket> tickets;
 
     public void setIdStatus(Integer idStatus) {
         this.idStatus = idStatus;

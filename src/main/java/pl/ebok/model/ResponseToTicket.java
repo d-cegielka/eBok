@@ -3,7 +3,6 @@ package pl.ebok.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "response_to_ticket")
@@ -14,11 +13,13 @@ public class ResponseToTicket implements Serializable {
     @Column(name = "id_response", nullable = false)
     private Integer idResponse;
 
-    @Column(name = "id_ticket", nullable = false)
-    private Integer idTicket;
+    @ManyToOne
+    @JoinColumn(name = "id_ticket", nullable = false)
+    private Ticket ticket;
 
-    @Column(name = "id_user", nullable = false)
-    private Integer idUser;
+    @ManyToOne
+    @JoinColumn(name = "id_user", nullable = false)
+    private User user;
 
     @Column(name = "response_date", nullable = false)
     private LocalDate responseDate;
@@ -34,20 +35,20 @@ public class ResponseToTicket implements Serializable {
         return idResponse;
     }
 
-    public void setIdTicket(Integer idTicket) {
-        this.idTicket = idTicket;
+    public void setTicket(Ticket idTicket) {
+        this.ticket = idTicket;
     }
 
-    public Integer getIdTicket() {
-        return idTicket;
+    public Ticket getTicket() {
+        return ticket;
     }
 
-    public void setIdUser(Integer idUser) {
-        this.idUser = idUser;
+    public void setUser(User idUser) {
+        this.user = idUser;
     }
 
-    public Integer getIdUser() {
-        return idUser;
+    public User getUser() {
+        return user;
     }
 
     public void setResponseDate(LocalDate responseDate) {
@@ -70,8 +71,8 @@ public class ResponseToTicket implements Serializable {
     public String toString() {
         return "ResponseToTicket{" +
                 "idResponse=" + idResponse + '\'' +
-                "idTicket=" + idTicket + '\'' +
-                "idUser=" + idUser + '\'' +
+                "idTicket=" + ticket + '\'' +
+                "idUser=" + user + '\'' +
                 "responseDate=" + responseDate + '\'' +
                 "message=" + message + '\'' +
                 '}';

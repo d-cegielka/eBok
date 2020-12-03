@@ -3,6 +3,7 @@ package pl.ebok.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Table(name = "invoice")
@@ -13,14 +14,17 @@ public class Invoice implements Serializable {
     @Column(name = "id_invoice", nullable = false)
     private Integer idInvoice;
 
-    @Column(name = "id_client", nullable = false)
-    private Integer idClient;
+    @ManyToOne
+    @JoinColumn(name = "id_client", nullable = false)
+    private User client;
 
-    @Column(name = "id_expositor", nullable = false)
-    private Integer idExpositor;
+    @ManyToOne
+    @JoinColumn(name = "id_expositor", nullable = false)
+    private User expositor;
 
-    @Column(name = "id_agreement", nullable = false)
-    private Integer idAgreement;
+    @ManyToOne
+    @JoinColumn(name = "id_agreement", nullable = false)
+    private Agreement agreement;
 
     @Column(name = "invoice_number", length = 50, nullable = false)
     private String invoiceNumber;
@@ -34,6 +38,12 @@ public class Invoice implements Serializable {
     @Column(name = "amount", nullable = false)
     private Double amount;
 
+    @OneToMany(mappedBy = "invoice")
+    private Set<InvoiceCorrection> invoicesCorrection;
+
+    @OneToMany(mappedBy = "invoice")
+    private Set<Payment> payments;
+
     public Integer getIdInvoice() {
         return idInvoice;
     }
@@ -42,28 +52,28 @@ public class Invoice implements Serializable {
         this.idInvoice = idInvoice;
     }
 
-    public Integer getIdClient() {
-        return idClient;
+    public User getClient() {
+        return client;
     }
 
-    public void setIdClient(Integer idClient) {
-        this.idClient = idClient;
+    public void setClient(User idClient) {
+        this.client = idClient;
     }
 
-    public Integer getIdExpositor() {
-        return idExpositor;
+    public User getExpositor() {
+        return expositor;
     }
 
-    public void setIdExpositor(Integer idExpositor) {
-        this.idExpositor = idExpositor;
+    public void setExpositor(User idExpositor) {
+        this.expositor = idExpositor;
     }
 
-    public Integer getIdAgreement() {
-        return idAgreement;
+    public Agreement getAgreement() {
+        return agreement;
     }
 
-    public void setIdAgreement(Integer idAgreement) {
-        this.idAgreement = idAgreement;
+    public void setAgreement(Agreement idAgreement) {
+        this.agreement = idAgreement;
     }
 
     public String getInvoiceNumber() {

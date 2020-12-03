@@ -1,7 +1,10 @@
 package pl.ebok.model;
 
 import javax.persistence.*;
+import java.io.Serial;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "service")
@@ -20,6 +23,9 @@ public class Service implements Serializable {
 
     @Column(name = "description", length = 300)
     private String description;
+
+    @ManyToMany(mappedBy = "services")
+    private Set<Agreement> agreements = new HashSet<>();
 
     public void setIdService(Integer idService) {
         this.idService = idService;

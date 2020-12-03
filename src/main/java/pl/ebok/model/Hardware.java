@@ -2,12 +2,12 @@ package pl.ebok.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "hardware")
 public class Hardware implements Serializable {
-
-//    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,11 +23,14 @@ public class Hardware implements Serializable {
     @Column(name = "model", length = 40, nullable = false)
     private String model;
 
-    @Column(name = "serialNumber", length = 40, unique = true, nullable = false)
+    @Column(name = "serial_number", length = 40, unique = true, nullable = false)
     private String serialNumber;
 
     @Column(name = "fee", nullable = false)
     private Double fee;
+
+    @ManyToMany(mappedBy = "hardwares")
+    private Set<Agreement> agreements = new HashSet<>();
 
     public Integer getIdHardware() {
         return idHardware;

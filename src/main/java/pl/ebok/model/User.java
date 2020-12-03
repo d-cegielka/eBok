@@ -1,182 +1,140 @@
 package pl.ebok.model;
 
 import javax.persistence.*;
-import java.util.List;
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Set;
 
 @Entity
-public class User {
-    @GeneratedValue
+@Table(name = "user")
+@NamedStoredProcedureQuery(name = "User.addUser",
+procedureName = "sp_add_user", parameters = {
+        @StoredProcedureParameter(mode = ParameterMode.IN, name = "firstName", type = String.class),
+        @StoredProcedureParameter(mode = ParameterMode.IN, name = "lastName", type = String.class),
+        @StoredProcedureParameter(mode = ParameterMode.IN, name = "email", type = String.class),
+        @StoredProcedureParameter(mode = ParameterMode.IN, name = "password", type = String.class),
+        @StoredProcedureParameter(mode = ParameterMode.IN, name = "enabledAccount", type = Boolean.class),
+        @StoredProcedureParameter(mode = ParameterMode.IN, name = "idRole", type = Integer.class),
+        @StoredProcedureParameter(mode = ParameterMode.INOUT, name = "responseMessage", type = String.class),
+})
+public class User implements Serializable {
+
     @Id
-    private Integer userId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_user", nullable = false)
+    private Integer idUser;
 
-    @Column
-    private String firstname;
+    @Column(name = "first_name", length = 40, nullable = false)
+    private String firstName;
 
-    @Column
-    private String lastname;
+    @Column(name = "last_name", length = 40, nullable = false)
+    private String lastName;
 
-    @Column
+    @Column(name = "email", length = 40, nullable = false)
     private String email;
 
-    @Column
-    private String password;
+    @Column(name = "password_hash", nullable = false)
+    private String passwordHash;
 
-    @Column
-    private Boolean enabled;
+    @Column(name = "enabled_account", nullable = false)
+    private Boolean enabledAccount;
 
     @ManyToOne
+    @JoinColumn(name = "id_role", nullable = false)
     private Role role;
 
-    @OneToMany(mappedBy = "user")
-    private List<UserConsumerDetails> userConsumerDetails;
-
-    @OneToMany(mappedBy = "user")
-    private List<UserConsumerDetails> userBusinessDetails;
-
-    @OneToMany(mappedBy = "user")
-    private List<Agreement> agreements;
-
     @OneToMany(mappedBy = "client")
-    private List<Invoice> invoicesClients;
+    private Set<Invoice> invoicesClient;
 
     @OneToMany(mappedBy = "expositor")
-    private List<Invoice> invoicesExpositors;
-
-    @OneToMany(mappedBy = "client")
-    private List<Payment> payments;
+    private Set<Invoice> invoicesExpositor;
 
     @OneToMany(mappedBy = "user")
-    private List<Ticket> tickets;
+    private Set<Agreement> agreements;
 
-    @OneToMany(mappedBy = "respondingUser")
-    private List<ResponseToTicket> responses;
+    @OneToMany(mappedBy = "client")
+    private Set<Payment> payments;
 
-    public Integer getUserId() {
-        return userId;
+    @OneToMany(mappedBy = "expositor")
+    private Set<InvoiceCorrection> invoicesCorrectionExpositor;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Ticket> tickets;
+
+    @OneToMany(mappedBy = "user")
+    private Set<ResponseToTicket> responsesToTicket;
+
+    @OneToOne(mappedBy = "user", optional = false, cascade = CascadeType.REMOVE)
+    private UserDetails userDetails;
+
+    public Integer getIdUser() {
+        return idUser;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public User setFirstName(String firstName) {
+        this.firstName = firstName;
+        return this;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public String getLastname() {
-        return lastname;
+    public User setLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public String getLastName() {
+        return lastName;
+    }
+
+    public User setEmail(String email) {
+        this.email = email;
+        return this;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public User setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+        return this;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public User setEnabledAccount(Boolean enabledAccount) {
+        this.enabledAccount = enabledAccount;
+        return this;
     }
 
-    public Boolean getEnabled() {
-        return enabled;
+    public Boolean isEnabledAccount() {
+        return enabledAccount;
     }
 
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
+    public User setRole(Role idRole) {
+        this.role = idRole;
+        return this;
     }
 
     public Role getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public List<UserConsumerDetails> getUserConsumerDetails() {
-        return userConsumerDetails;
-    }
-
-    public void setUserConsumerDetails(List<UserConsumerDetails> userConsumerDetails) {
-        this.userConsumerDetails = userConsumerDetails;
-    }
-
-    public List<UserConsumerDetails> getUserBusinessDetails() {
-        return userBusinessDetails;
-    }
-
-    public void setUserBusinessDetails(List<UserConsumerDetails> userBusinessDetails) {
-        this.userBusinessDetails = userBusinessDetails;
-    }
-
-    public List<Agreement> getAgreements() {
-        return agreements;
-    }
-
-    public void setAgreements(List<Agreement> agreements) {
-        this.agreements = agreements;
-    }
-
-    public List<Invoice> getInvoicesClients() {
-        return invoicesClients;
-    }
-
-    public void setInvoicesClients(List<Invoice> invoicesClients) {
-        this.invoicesClients = invoicesClients;
-    }
-
-    public List<Invoice> getInvoicesExpositors() {
-        return invoicesExpositors;
-    }
-
-    public void setInvoicesExpositors(List<Invoice> invoicesExpositors) {
-        this.invoicesExpositors = invoicesExpositors;
-    }
-
-    public List<Payment> getPayments() {
-        return payments;
-    }
-
-    public void setPayments(List<Payment> payments) {
-        this.payments = payments;
-    }
-
-    public List<Ticket> getTickets() {
-        return tickets;
-    }
-
-    public void setTickets(List<Ticket> tickets) {
-        this.tickets = tickets;
-    }
-
-    public List<ResponseToTicket> getResponses() {
-        return responses;
-    }
-
-    public void setResponses(List<ResponseToTicket> responses) {
-        this.responses = responses;
-    }
-
     @Override
     public String toString() {
         return "User{" +
-                "userId=" + userId +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", enabled=" + enabled +
-                ", userRole=" + role +
+                "idUser=" + idUser + '\'' +
+                "firstName=" + firstName + '\'' +
+                "lastName=" + lastName + '\'' +
+                "email=" + email + '\'' +
+                "passwordHash=" + passwordHash + '\'' +
+                "enabledAccount=" + enabledAccount + '\'' +
+                "idRole=" + role + '\'' +
                 '}';
     }
 }

@@ -1,94 +1,115 @@
 package pl.ebok.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 
+@Table(name = "ticket")
 @Entity
-public class Ticket {
-    @GeneratedValue
+public class Ticket implements Serializable {
+
     @Id
-    private Integer ticketId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_ticket", nullable = false)
+    private Integer idTicket;
 
     @ManyToOne
+    @JoinColumn(name = "id_user", nullable = false)
     private User user;
 
-    @Column
+    @Column(name = "topic", length = 50, nullable = false)
     private String topic;
 
-    @Column
-    @Lob
+    @Column(name = "message", length = 500, nullable = false)
     private String message;
 
-    @Column
+    @Column(name = "created_date", nullable = false)
     private LocalDateTime createdDate;
 
-    @Column
+    @Column(name = "end_date")
     private LocalDateTime endDate;
 
-    @Column
-    private String status;
+    @ManyToOne
+    @JoinColumn(name = "id_status", nullable = false)
+    private Status status;
 
     @OneToMany(mappedBy = "ticket")
-    private List<ResponseToTicket> responses;
+    private Set<ResponseToTicket> responsesToTicket;
 
-    public Integer getTicketId() {
-        return ticketId;
+    public Ticket setIdTicket(Integer idTicket) {
+        this.idTicket = idTicket;
+        return this;
+    }
+
+    public Integer getIdTicket() {
+        return idTicket;
+    }
+
+    public Ticket setUser(User idUser) {
+        this.user = idUser;
+        return this;
     }
 
     public User getUser() {
         return user;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public Ticket setTopic(String topic) {
+        this.topic = topic;
+        return this;
     }
 
     public String getTopic() {
         return topic;
     }
 
-    public void setTopic(String topic) {
-        this.topic = topic;
+    public Ticket setMessage(String message) {
+        this.message = message;
+        return this;
     }
 
     public String getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public Ticket setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+        return this;
     }
 
     public LocalDateTime getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(LocalDateTime createdDate) {
-        this.createdDate = createdDate;
+    public Ticket setEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
+        return this;
     }
 
     public LocalDateTime getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDateTime endDate) {
-        this.endDate = endDate;
+    public Ticket setStatus(Status idStatus) {
+        this.status = idStatus;
+        return this;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public List<ResponseToTicket> getResponses() {
-        return responses;
-    }
-
-    public void setResponses(List<ResponseToTicket> responses) {
-        this.responses = responses;
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "idTicket=" + idTicket + '\'' +
+                "idUser=" + user + '\'' +
+                "topic=" + topic + '\'' +
+                "message=" + message + '\'' +
+                "createdDate=" + createdDate + '\'' +
+                "endDate=" + endDate + '\'' +
+                "idStatus=" + status + '\'' +
+                '}';
     }
 }

@@ -6,7 +6,6 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "payment")
-
 public class Payment implements Serializable {
 
     @Id
@@ -14,11 +13,13 @@ public class Payment implements Serializable {
     @Column(name = "id_payment", nullable = false)
     private Integer idPayment;
 
-    @Column(name = "id_client", nullable = false)
-    private Integer idClient;
+    @ManyToOne
+    @JoinColumn(name = "id_client", nullable = false)
+    private User client;
 
-    @Column(name = "id_invoice", nullable = false)
-    private Integer idInvoice;
+    @ManyToOne
+    @JoinColumn(name = "id_invoice", nullable = false)
+    private Invoice invoice;
 
     @Column(name = "payment_date", nullable = false)
     private LocalDate paymentDate;
@@ -37,20 +38,20 @@ public class Payment implements Serializable {
         this.idPayment = idPayment;
     }
 
-    public Integer getIdClient() {
-        return idClient;
+    public User getClient() {
+        return client;
     }
 
-    public void setIdClient(Integer idClient) {
-        this.idClient = idClient;
+    public void setClient(User idClient) {
+        this.client = idClient;
     }
 
-    public Integer getIdInvoice() {
-        return idInvoice;
+    public Invoice getInvoice() {
+        return invoice;
     }
 
-    public void setIdInvoice(Integer idInvoice) {
-        this.idInvoice = idInvoice;
+    public void setInvoice(Invoice idInvoice) {
+        this.invoice = idInvoice;
     }
 
     public LocalDate getPaymentDate() {

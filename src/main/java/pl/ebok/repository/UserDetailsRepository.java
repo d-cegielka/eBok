@@ -2,8 +2,8 @@ package pl.ebok.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import pl.ebok.model.Permission;
+import pl.ebok.model.UserDetails;
 
-public interface PrivilegeRepository extends JpaRepository<Permission, Integer>, JpaSpecificationExecutor<Permission> {
+public interface UserDetailsRepository extends JpaRepository<UserDetails, Integer>, JpaSpecificationExecutor<UserDetails> {
 
 }
