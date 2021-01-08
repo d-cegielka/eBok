@@ -17,14 +17,14 @@ public class Role implements Serializable {
     @Column(name = "name", length = 50, nullable = false)
     private String name;
 
-    @ManyToMany
-    @JoinTable(name = "role_permission",
-            joinColumns = @JoinColumn(name = "id_role", referencedColumnName = "id_role"),
-            inverseJoinColumns = @JoinColumn(name = "id_permission", referencedColumnName = "id_permission"))
-    private Set<Permission> permissions = new HashSet<>();
+    @Column(name = "description", length = 150)
+    private String description;
 
-    @OneToMany(mappedBy = "role")
-    private Set<User> users;
+    @ManyToMany
+    @JoinTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "id_role", referencedColumnName = "id_role"),
+            inverseJoinColumns = @JoinColumn(name = "id_user", referencedColumnName = "id_user"))
+    private Set<User> users = new HashSet<>();
 
     public void setIdRole(Integer idRole) {
         this.idRole = idRole;
@@ -40,6 +40,22 @@ public class Role implements Serializable {
 
     public String getName() {
         return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
     @Override

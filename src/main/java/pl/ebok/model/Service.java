@@ -24,8 +24,16 @@ public class Service implements Serializable {
     @Column(name = "description", length = 300)
     private String description;
 
-    @ManyToMany(mappedBy = "services")
-    private Set<Agreement> agreements = new HashSet<>();
+    public Service(String name, Double fee, String description) {
+        this.name = name;
+        this.fee = fee;
+        this.description = description;
+    }
+/*@ManyToMany(mappedBy = "services")
+    private Set<Agreement> agreements = new HashSet<>();*/
+
+    @OneToMany(mappedBy = "service")
+    private Set<AgreementService> agreementServices;
 
     public void setIdService(Integer idService) {
         this.idService = idService;

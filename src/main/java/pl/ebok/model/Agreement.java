@@ -52,11 +52,13 @@ public class Agreement implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "id_hardware", referencedColumnName = "id_hardware"))
     private Set<Hardware> hardwares = new HashSet<>();
 
-    @ManyToMany
+    @OneToMany(mappedBy = "agreement")
+    private Set<AgreementService> agreementServices;
+    /*@ManyToMany
     @JoinTable(name = "agreement_service",
             joinColumns = @JoinColumn(name = "id_agreement", referencedColumnName = "id_agreement"),
             inverseJoinColumns = @JoinColumn(name = "id_service", referencedColumnName = "id_service"))
-    private Set<Service> services = new HashSet<>();
+    private Set<Service> services = new HashSet<>();*/
 
     public Agreement setIdAgreement(Integer idAgreement) {
         this.idAgreement = idAgreement;
@@ -128,6 +130,26 @@ public class Agreement implements Serializable {
 
     public Integer getBillingDay() {
         return billingDay;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Set<Invoice> getInvoices() {
+        return invoices;
+    }
+
+    public Set<Hardware> getHardwares() {
+        return hardwares;
+    }
+
+    public Set<AgreementService> getAgreementServices() {
+        return agreementServices;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

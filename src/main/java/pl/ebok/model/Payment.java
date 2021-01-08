@@ -14,10 +14,6 @@ public class Payment implements Serializable {
     private Integer idPayment;
 
     @ManyToOne
-    @JoinColumn(name = "id_client", nullable = false)
-    private User client;
-
-    @ManyToOne
     @JoinColumn(name = "id_invoice", nullable = false)
     private Invoice invoice;
 
@@ -36,14 +32,6 @@ public class Payment implements Serializable {
 
     public void setIdPayment(Integer idPayment) {
         this.idPayment = idPayment;
-    }
-
-    public User getClient() {
-        return client;
-    }
-
-    public void setClient(User idClient) {
-        this.client = idClient;
     }
 
     public Invoice getInvoice() {

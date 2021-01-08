@@ -1,26 +1,23 @@
-package pl.ebok.managers;
+package pl.ebok.manager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import pl.ebok.IUser;
+import pl.ebok.model.User;
 import pl.ebok.repository.UserRepository;
 
-import javax.persistence.*;
 import java.util.List;
+import java.util.Optional;
+
 
 @EnableJpaRepositories(basePackageClasses = UserRepository.class)
 @RestController
-public class UsersManager {
+public class UserManager implements IUser {
     private final UserRepository userRepository;
-/*
-    @Autowired
-    private EntityManager entityManager;
-*/
 
     @Autowired
-    public UsersManager(UserRepository userRepository) {
+    public UserManager(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -49,14 +46,40 @@ public class UsersManager {
         return sp.getOutputParameterValue("responseMessage").toString();
     }*/
 
-    @RequestMapping("/getUsers")
+   /* @RequestMapping("/getUsers")
     @ResponseBody
     public String getUsers(){
         String message = userRepository.addUser("Jan","DANA",
-                "dc@dc.com","1234",true,1,"");
+                "dc@dc.com","12345678",true,1,"");
         System.out.println("Message: " + message);
         return message;
     }
 
+    @RequestMapping("/getAllUsers")
+    @ResponseBody
+    public String getAllUsers(){
+        return userRepository.findAll().toString();
+    }*/
 
+
+    @Override
+    public List<User> getAll() {
+        return userRepository.findAll();
+    }
+
+    @Override
+    public Optional<User> getById(Integer id) {
+        return userRepository.findById(id);
+    }
+
+    @Override
+    public String addUser(User user) {
+        return userRepository.addUser(user.getFirstName(), user.getLastName(), user.getEmail(),
+                user.getPasswordHash(),user.getEnabledAccount(), user.getBusinessAccount(), user.getCompanyName(), user.getTaxId(), user.getPhoneNumber(), user.getAddress(), user.getZipCode(),user.getCity(), "");
+    }
+
+    @Override
+    public String deleteUser(Integer id) {
+        return null;
+    }
 }
