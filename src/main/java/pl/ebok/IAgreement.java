@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.ebok.model.Agreement;
 import pl.ebok.model.AgreementService;
 import pl.ebok.model.Hardware;
+import pl.ebok.model.Service;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +19,7 @@ public interface IAgreement {
     Optional<Agreement> getById(@PathVariable Integer id);
 
     @PostMapping("/")
-    Agreement addAgreement(@RequestBody Agreement agreement, @RequestBody List<AgreementService> agreementServices, @RequestBody List<Hardware> hardwares);
+    Agreement addAgreement(@RequestBody Agreement agreement, @RequestBody List<Service> services, @RequestBody List<Hardware> hardwares);
 
     @PutMapping("/{id}")
     Agreement updateAgreement(@RequestBody Agreement changedAgreement, @PathVariable Integer id);
