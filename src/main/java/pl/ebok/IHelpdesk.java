@@ -23,24 +23,19 @@ public interface IHelpdesk {
     @GetMapping("/{id}")
     Optional<Ticket> getTicketById(@PathVariable Integer id);
 
-    @GetMapping("/{id_ticket}/{id}")
-    Optional<ResponseToTicket> getResponseByTicketId(@PathVariable Integer id_ticket, @PathVariable Integer id);
+    @GetMapping("/responses/{id}")
+    Optional<ResponseToTicket> getResponseToTicketById(@PathVariable Integer id);
 
     @PostMapping("/")
     Ticket addTicket(@RequestBody Ticket ticket);
 
-    @PostMapping("/{id_ticket}/")
-    ResponseToTicket addResponseToTicket(@RequestBody ResponseToTicket response, @PathVariable Integer id_ticket);
+    @PostMapping("/responses/")
+    ResponseToTicket addResponseToTicket(@RequestBody ResponseToTicket response);
 
     @PutMapping("/{id}")
     Ticket updateTicket(@RequestBody Ticket changedTicket, @PathVariable Integer id);
 
-    @PutMapping("/{id_ticket}/{id}")
-    ResponseToTicket updateResponseToTicket(@RequestBody ResponseToTicket changedResponse, @PathVariable Integer id_ticket, @PathVariable Integer id);
+    @PutMapping("/responses/{id}")
+    ResponseToTicket updateResponseToTicket(@RequestBody ResponseToTicket changedResponse, @PathVariable Integer id);
 
-    @DeleteMapping("/{id}")
-    void deleteTicket(@PathVariable Integer id);
-
-    @DeleteMapping("/{id_ticket}/{id}")
-    void deleteResponseToTicket(@PathVariable Integer id_ticket, @PathVariable Integer id);
 }

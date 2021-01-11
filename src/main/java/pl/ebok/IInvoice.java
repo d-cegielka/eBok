@@ -25,7 +25,7 @@ public interface IInvoice {
     @PostMapping("/")
     Invoice addInvoice(@RequestBody Invoice invoice);
 
-    @PostMapping("/{id_invoice}/")
-    Invoice addInvoiceCorrection(@RequestBody InvoiceCorrection invoiceCorrection, @PathVariable Integer id_invoice);
+    @PostMapping("/corrections/")
+    InvoiceCorrection addInvoiceCorrection(@RequestBody InvoiceCorrection invoiceCorrection);
 
 }

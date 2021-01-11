@@ -21,7 +21,4 @@ public interface IPayment {
 
     @PutMapping("/{id}")
     Payment updatePayment(@RequestBody Payment changedPayment, @PathVariable Integer id);
-
-    @DeleteMapping("/{id}")
-    void deletePayment(@PathVariable Integer id);
 }
