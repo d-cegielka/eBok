@@ -3,7 +3,7 @@ package pl.ebok.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "invoice")
@@ -39,10 +39,18 @@ public class Invoice implements Serializable {
     private Double amount;
 
     @OneToMany(mappedBy = "invoice")
-    private Set<InvoiceCorrection> invoicesCorrection;
+    private List<InvoiceCorrection> invoicesCorrection;
 
     @OneToMany(mappedBy = "invoice")
-    private Set<Payment> payments;
+    private List<Payment> payments;
+
+    public List<InvoiceCorrection> getInvoicesCorrection() {
+        return invoicesCorrection;
+    }
+
+    public List<Payment> getPayments() {
+        return payments;
+    }
 
     public Integer getIdInvoice() {
         return idInvoice;

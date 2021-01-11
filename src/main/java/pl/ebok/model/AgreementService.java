@@ -23,6 +23,15 @@ public class AgreementService implements Serializable {
     @Column(name = "final_fee", nullable = false)
     private Double finalFee;
 
+    public AgreementService(Agreement agreement, Service service, Double finalFee) {
+        this.agreement = agreement;
+        this.service = service;
+        this.finalFee = finalFee;
+    }
+
+    public AgreementService() {
+    }
+
     public AgreementService setIdAgreementService(Integer idAgreementService) {
         this.idAgreementService = idAgreementService;
         return this;

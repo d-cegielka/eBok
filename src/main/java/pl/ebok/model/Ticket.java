@@ -3,7 +3,7 @@ package pl.ebok.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
 
 @Table(name = "ticket")
 @Entity
@@ -35,11 +35,15 @@ public class Ticket implements Serializable {
     private Status status;
 
     @OneToMany(mappedBy = "ticket")
-    private Set<ResponseToTicket> responsesToTicket;
+    private List<ResponseToTicket> responsesToTicket;
 
     public Ticket setIdTicket(Integer idTicket) {
         this.idTicket = idTicket;
         return this;
+    }
+
+    public List<ResponseToTicket> getResponsesToTicket() {
+        return responsesToTicket;
     }
 
     public Integer getIdTicket() {
