@@ -7,6 +7,7 @@ import pl.ebok.IAgreement;
 import pl.ebok.model.Agreement;
 import pl.ebok.model.AgreementService;
 import pl.ebok.model.Hardware;
+import pl.ebok.model.Service;
 import pl.ebok.repository.AgreementRepository;
 
 import java.util.List;
@@ -33,17 +34,19 @@ public class AgreementManager implements IAgreement {
     }
 
     @Override
-    public Agreement addAgreement(Agreement agreement, List<AgreementService> agreementServices, List<Hardware> hardwares) {
-        Agreement added = agreementRepository.save(agreement);
-        agreement.getAgreementServices().addAll(agreementServices);
+    public Agreement addAgreement(Agreement agreement, List<Service> services, List<Hardware> hardwares) {
+//        Agreement added = agreementRepository.save(agreement);
+        for (Service service : services) {
+            agreement.getAgreementServices().add(new AgreementService(agreement, service, service.getFee()));
+        }
         agreement.getHardwares().addAll(hardwares);
-        return added;
+        return agreementRepository.save(agreement);
     }
 
     @Override
     public Agreement updateAgreement(Agreement changedAgreement, Integer id) {
         Optional<Agreement> agreement = agreementRepository.findById(id);
-        if(agreement.isEmpty())
+        if (agreement.isEmpty())
             return null;
         changedAgreement.setIdAgreement(id);
         return agreementRepository.save(changedAgreement);
